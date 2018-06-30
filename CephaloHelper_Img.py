@@ -52,7 +52,7 @@ def prepare_img(path):
     image = imutils.resize(image, height=700)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
-    edged = cv2.Canny(blur, 10, 40)
+    edged = cv2.Canny(blur, 15, 60)
 
     return edged
 
@@ -67,7 +67,14 @@ def find_contour(img):
             if area > 10000:
                 print("Contour found...")
                 break
-    return approx
+
+    warped = four_point_transform(img, approx.reshape(4, 2))
+    h, w = warped.shape
+    cropped = cv2.resize(warped[10:h - 10, 10:w - 10], (480, 682))
+    h1, w1 = cropped.shape
+    ratio = w1 / 204
+
+    return cropped
 
 
 def find_points(img):
@@ -78,33 +85,49 @@ def find_points(img):
         cX = int(M['m10'] / M['m00'])
         cY = int(M['m01'] / M['m00'])
         pts.append([cX, cY])
+
+    # for i, p in enumerate(pts):
+    #     cv2.putText(img, str(i), (p[0], p[1]), cv2.FONT_HERSHEY_SIMPLEX,
+    #                 0.5, (255, 255, 255), 2)
     return pts
 
 
-path = 'C://Users//Tarek//Pictures//negato_neopixel2.jpg'
+def sort_points(pts):
+    dict = {}
+
+    #Extract 'S, Po, Ar, Go'...
+    ordered_y = sorted(pts, key= lambda pt: pt[1])[0:4]
+    ordered_x = sorted(ordered_y, key=lambda pt: pt[0])
+    pts_new = [pt for pt in pts if pt not in ordered_x]
+    dict.update({'S': ordered_x[3], 'Po': ordered_x[2], 'Ar': ordered_x[1], 'Go': ordered_x[0]})
+
+    # Extract des molaires ;)...
+    ordered_y = sorted(pts_new, key= lambda pt: pt[1])[4:]
+    ordered_y_m = sorted(pts_new, key=lambda pt: pt[1])[0:4]
+    ordered_x_m = sorted(ordered_y_m , key=lambda pt: pt[0])
+    dict.update({'M1': ordered_x_m[2], 'M2': ordered_x_m[3], 'm_1': ordered_x_m[1], 'm_2': ordered_x_m[0]})
+
+    # Extract 'Me, Gn, Na, Or'...
+    ordered_x = sorted(ordered_y, key=lambda pt: pt[0])
+    dict.update({'Me': ordered_x[0], 'Gn': ordered_x[1], 'Na': ordered_x[-1], 'Or': ordered_x[-2]})
+
+    return dict
+
+
+
+path = 'C://Users//Tarek//Pictures//pts_order3.jpg'
 img = prepare_img(path)
-
 cv2.imshow('img1', img)
+
 contour = find_contour(img)
-warped = four_point_transform(img, contour.reshape(4, 2))
+pts = find_points(contour)
 
-h, w = warped.shape
-cropped = cv2.resize(warped[10:h-10, 10:w-10], (480, 682))
-h1, w1 = cropped.shape
-ratio = w1/204
-pts = find_points(cropped)
-for i, p in enumerate(pts):
-    cv2.putText(cropped, str(i), (p[0], p[1]), cv2.FONT_HERSHEY_SIMPLEX,
+dict = sort_points(pts)
+
+for pt, coord in dict.items():
+    cv2.putText(contour, pt, (coord[0], coord[1]), cv2.FONT_HERSHEY_SIMPLEX,
                 0.5, (255, 255, 255), 2)
-print(len(pts))
-angle_test = helper.get_angle(pts[1], pts[0], pts[2])
-a = np.array((pts[0][0], pts[0][1]))
-b = np.array((pts[1][0], pts[1][1]))
-dist = np.linalg.norm(a-b)
-print(dist/ratio)
-print(angle_test)
 
-
-cv2.imshow('img', cropped)
+cv2.imshow('img', contour)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
