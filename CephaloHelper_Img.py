@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-import bonefinder_addon as helper
+import helper as helper
 import imutils
 
 

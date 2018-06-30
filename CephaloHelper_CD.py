@@ -1,6 +1,6 @@
 from PIL import ImageTk, Image
 import tkinter as tk
-import bonefinder_addon as helper
+import helper as helper
 
 '''
 Points:
