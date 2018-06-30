@@ -3,6 +3,7 @@ import cv2
 import helper as helper
 import imutils
 
+# TODO: Extract 'ENA, ENP' and Calculate angles.
 
 def order_points(pts):
     rect = np.zeros((4, 2), dtype="float32")
@@ -85,10 +86,6 @@ def find_points(img):
         cX = int(M['m10'] / M['m00'])
         cY = int(M['m01'] / M['m00'])
         pts.append([cX, cY])
-
-    # for i, p in enumerate(pts):
-    #     cv2.putText(img, str(i), (p[0], p[1]), cv2.FONT_HERSHEY_SIMPLEX,
-    #                 0.5, (255, 255, 255), 2)
     return pts
 
 
@@ -101,21 +98,29 @@ def sort_points(pts):
     pts_new = [pt for pt in pts if pt not in ordered_x]
     dict.update({'S': ordered_x[3], 'Po': ordered_x[2], 'Ar': ordered_x[1], 'Go': ordered_x[0]})
 
-    # Extract des molaires ;)...
+    #Extraction des molaires ;)...
     ordered_y = sorted(pts_new, key= lambda pt: pt[1])[4:]
     ordered_y_m = sorted(pts_new, key=lambda pt: pt[1])[0:4]
     ordered_x_m = sorted(ordered_y_m , key=lambda pt: pt[0])
     dict.update({'M1': ordered_x_m[2], 'M2': ordered_x_m[3], 'm_1': ordered_x_m[1], 'm_2': ordered_x_m[0]})
 
-    # Extract 'Me, Gn, Na, Or'...
+    #Extract 'Me, Gn, Na, Or, I1, I2, A, i_1'...
     ordered_x = sorted(ordered_y, key=lambda pt: pt[0])
-    dict.update({'Me': ordered_x[0], 'Gn': ordered_x[1], 'Na': ordered_x[-1], 'Or': ordered_x[-2]})
+    dict.update({'Me': ordered_x[0], 'Gn': ordered_x[1], 'Na': ordered_x[-1], 'i_1': ordered_x[-5],
+                 'Or': ordered_x[-2], 'I2': ordered_x[-3], 'A': ordered_x[-4], 'I1': ordered_x[-6]})
+
+    #Extract 'B, Pog, i_2'...
+    pts_remain = [ordered_x[2], ordered_x[3], ordered_x[4]]
+    ordered_y = sorted(pts_remain, key=lambda pt: pt[1])[1:3]
+    i2 = sorted(pts_remain, key=lambda pt: pt[1])[0]
+    ordered_x = sorted(ordered_y, key=lambda pt: pt[0])
+    dict.update({'B': ordered_x[1], 'Pog': ordered_x[0], 'i_2': i2})
 
     return dict
 
 
 
-path = 'C://Users//Tarek//Pictures//pts_order3.jpg'
+path = 'pts_order3.jpg'
 img = prepare_img(path)
 cv2.imshow('img1', img)
 
