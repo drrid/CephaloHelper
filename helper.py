@@ -1,26 +1,107 @@
 import numpy as np
+import math
+
 
 '''
-[L1_sella,
-L2_nasion,
+[L0_sella,
+L1_nasion,
+L2_porion,
 L3_orbitale,
-L4_porion,
-L5_subspinale_A,
-L6_supramentale_B,
-L7_pogonion,
-L8_menton,
-L9_gnathion,
-L10_gonion,
-L11_lower_incisal_incision,
-L12_upper_incisal_incision,
-L13_upper_lip,
-L14_lower_lip,
-L15_subnasale,
-L16_soft_tissue_pogonion,
-L17_posterior_nasal_spine,
-L18_anterior_nasal_spine,
-L19_articulate]
+L4_ENP,
+L5_ENA,
+L6_point_A,
+L7_point_B,
+L8_pogonion,
+L9_menton,
+L10_gnathion,
+L11_gonion,
+L12_articulate,
+L13_I1,
+L14_I2,
+L15_i1,
+L16_i2,
+L17_M1,
+L18_M2,
+L19_m1,
+L20_m2]
 '''
+
+
+def dot(v, w):
+    x, y = v
+    X, Y = w
+    return x * X + y * Y
+def length(v):
+    x, y = v
+    return math.sqrt(x * x + y * y)
+def vector(b, e):
+    x, y = b
+    X, Y = e
+    return (X - x, Y - y)
+def unit(v):
+    x, y = v
+    mag = length(v)
+    return (x / mag, y / mag)
+def distance(p0, p1):
+    return length(vector(p0, p1))
+def scale(v, sc):
+    x, y = v
+    return (x * sc, y * sc)
+def add(v, w):
+    x, y = v
+    X, Y = w
+    return (x + X, y + Y)
+
+
+def pnt2line(pnt, start, end):
+    line_vec = vector(start, end)
+    pnt_vec = vector(start, pnt)
+    line_len = length(line_vec)
+    line_unitvec = unit(line_vec)
+    pnt_vec_scaled = scale(pnt_vec, 1.0/line_len)
+    t = dot(line_unitvec, pnt_vec_scaled)
+    if t < 0.0:
+        t = 0.0
+    elif t > 1.0:
+        t = 1.0
+    nearest = scale(line_vec, t)
+    dist = distance(nearest, pnt_vec)
+    nearest = add(nearest, start)
+    nearest = [float(nearest[0]), float(nearest[1])]
+    return (nearest)
+
+
+def rapport_etage(pnt, start, end):
+
+    line_vec = vector(start, end)
+    pnt_vec = vector(start, pnt)
+    line_len = length(line_vec)
+    line_unitvec = unit(line_vec)
+    pnt_vec_scaled = scale(pnt_vec, 1.0/line_len)
+    t = dot(line_unitvec, pnt_vec_scaled)
+    if t < 0.0:
+        t = 0.0
+    elif t > 1.0:
+        t = 1.0
+    nearest = scale(line_vec, t)
+    dist = distance(nearest, pnt_vec)
+    nearest = add(nearest, start)
+
+
+    ena_prime = [float(nearest[0]), float(nearest[1])]
+
+    na = np.array(start)
+    me = np.array(end)
+    ena = np.array(ena_prime)
+
+    dist_total = np.linalg.norm(na-me)
+    dist_sup = np.linalg.norm(na - ena)
+    dist_inf = np.linalg.norm(ena - me)
+
+    es = round(dist_sup*100/dist_total, 2)
+    ei = round(dist_inf * 100 / dist_total, 2)
+
+    return(es, ei)
 
 
 def get_points(path):

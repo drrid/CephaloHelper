@@ -50,10 +50,10 @@ def prepare_img(path):
     image = cv2.imread(path)
 
     #Apply Canny Edge...
-    image = imutils.resize(image, height=700)
+    image = imutils.resize(image, height=1200)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
-    edged = cv2.Canny(blur, 15, 60)
+    edged = cv2.Canny(blur, 15,50)
 
     return edged
 
@@ -71,7 +71,7 @@ def find_contour(img):
 
     warped = four_point_transform(img, approx.reshape(4, 2))
     h, w = warped.shape
-    cropped = cv2.resize(warped[10:h - 10, 10:w - 10], (480, 682))
+    cropped = cv2.resize(warped[20:h - 20, 20:w - 20], (800, 1136))
     h1, w1 = cropped.shape
     ratio = w1 / 204
 
@@ -120,7 +120,7 @@ def sort_points(pts):
 
 
 
-path = 'pts_order3.jpg'
+path = 'pts.jpg'
 img = prepare_img(path)
 cv2.imshow('img1', img)
 
