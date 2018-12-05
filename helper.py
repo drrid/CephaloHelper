@@ -14,16 +14,17 @@ L7_point_B,
 L8_pogonion,
 L9_menton,
 L10_gnathion,
-L11_gonion,
-L12_articulate,
-L13_I1,
-L14_I2,
-L15_i1,
-L16_i2,
-L17_M1,
-L18_M2,
-L19_m1,
-L20_m2]
+L11_symphyse
+L12_gonion,
+L13_articulate,
+L14_I1,
+L15_I2,
+L16_i1,
+L17_i2,
+L18_M1,
+L19_M2,
+L20_m1,
+L21_m2]
 '''
 
 
@@ -52,6 +53,21 @@ def add(v, w):
     X, Y = w
     return (x + X, y + Y)
 
+def aobo_verify(pnt_A, pnt_B, POP, POA, clb1, clb2):
+    clb1 = np.array(clb1)
+    clb2 = np.array(clb2)
+    clb = np.linalg.norm(clb1 - clb2)
+
+    pnt_Ao = np.array(pnt2line(pnt_A, POA, POP))
+    pnt_Bo = np.array(pnt2line(pnt_B, POA, POP))
+
+    if (pnt_Ao[0] < pnt_Bo[0]):
+        AoBo = np.linalg.norm(pnt_Ao - pnt_Bo)
+        AoBo = round(AoBo*10/clb)*-1
+    else:
+        AoBo = np.linalg.norm(pnt_Ao - pnt_Bo)
+        AoBo = round(AoBo*10/clb)
+    return (AoBo)
 
 def pnt2line(pnt, start, end):
     line_vec = vector(start, end)
