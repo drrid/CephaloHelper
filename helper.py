@@ -21,7 +21,7 @@ AF_dsc = "Normoposition du menton"
 AF_dsc_plus = "Protrusion du menton"
 AF_dsc_minus = "Rétrusion du menton"
 
-AoBo_dsc = "Les maxillaires ont dsc rapports harmonieux"
+AoBo_dsc = "Les maxillaires ont des rapports harmonieux"
 AoBo_dsc_plus = "Classe II squelettique"
 AoBo_dsc_minus = "Classe III squelettique"
 
@@ -29,9 +29,9 @@ FMA_dsc = "Croissance mandibulaire moyenne"
 FMA_dsc_plus = "Croissance mandibulaire à tendance verticale"
 FMA_dsc_minus = "Croissance mandibulaire à tendance horizontale"
 
-Axe_y_dsc = "Croissance faciale moyenne"
-Axe_y_dsc_plus = "Croissance faciale à tendance verticale"
-Axe_y_dsc_minus = "Croissance faciale à tendance horizontale"
+AXE_Y_dsc = "Croissance faciale moyenne"
+AXE_Y_dsc_plus = "Croissance faciale à tendance verticale"
+AXE_Y_dsc_minus = "Croissance faciale à tendance horizontale"
 
 AG_dsc = "Normodivergence"
 AG_dsc_plus = "Hyperdivergence"

@@ -2,6 +2,11 @@ from PIL import ImageTk, Image
 import tkinter as tk
 import helper as helper
 
+from docx import Document
+from docx.shared import Inches
+from docx.enum.section import WD_ORIENT
+from docx.enum.section import WD_SECTION
+
 '''
 Points:
 
@@ -34,6 +39,7 @@ L23_POP]
 class Cephalo(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
+        self.name = "Belouassa Chehla"
         self.x = self.y = 0
         self.pts = []
         self.pts_text = ["S", "Na", "Po", "Or", "ENP", "ENA", "A", "B", "Pog", "Me", "Gn", "D", "Go",
@@ -44,7 +50,7 @@ class Cephalo(tk.Tk):
 
         self.canvas = tk.Canvas(self, width=1000, height=750, cursor="cross")
         self.canvas.pack(side="top", fill="both", expand=True)
-        self.img = ImageTk.PhotoImage(Image.open("Belouassa Chehla.jpg"))
+        self.img = ImageTk.PhotoImage(Image.open(self.name+".jpg"))
         # self.img = ImageTk.PhotoImage(Image.open("from_phone.jpg"))
         self.canvas.create_image(0, 0, image=self.img, anchor='nw')
         self.canvas.bind("<ButtonPress-1>", self.on_button_press)
@@ -58,27 +64,114 @@ class Cephalo(tk.Tk):
 
     def calculate(self):
         SNA = helper.get_angle(self.pts[0], self.pts[1], self.pts[6])
+        SNA_dsc = helper.SNA_dsc
+        if SNA>86:
+            SNA_dsc = helper.SNA_dsc_plus
+        elif SNA < 80:
+            SNA_dsc = helper.SNA_dsc_minus
+
         SNB = helper.get_angle(self.pts[0], self.pts[1], self.pts[7])
+        SNB_dsc = helper.SNB_dsc
+        if SNB > 83:
+            SNB_dsc = helper.SNB_dsc_plus
+        elif SNB < 77:
+            SNB_dsc = helper.SNB_dsc_minus
+
         ANB = round(SNA - SNB)
+        ANB_dsc = helper.ANB_dsc
+        if ANB > 4:
+            ANB_dsc = helper.ANB_dsc_plus
+        elif ANB < 2:
+            ANB_dsc = helper.ANB_dsc_minus
+
         AOBO = helper.aobo_verify(self.pts[6], self.pts[7], self.pts[22], self.pts[23], self.pts[-1], self.pts[-2])
+        AOBO_dsc = helper.AoBo_dsc
+        if AOBO > 3:
+            AOBO_dsc = helper.AoBo_dsc_plus
+        elif AOBO < -1:
+            AOBO_dsc = helper.AoBo_dsc_minus
+
         SND = helper.get_angle(self.pts[0], self.pts[1], self.pts[11])
+
         AC = round(180 - helper.get_angle(self.pts[8], self.pts[6], self.pts[1]))
+        AC_dsc = helper.AC_dsc
+        if AC > 11:
+            AC_dsc = helper.AC_dsc_plus
+        elif AC < 1:
+            AC_dsc = helper.AC_dsc_minus
+
         AF = helper.get_angle(self.pts[2], self.pts[3], self.pts[8])
+        AF_dsc = helper.AF_dsc
+        if AF > 93:
+            AF_dsc = helper.AF_dsc_plus
+        elif AF < 87:
+            AF_dsc = helper.AF_dsc_minus
+
         FMA = helper.get_angle_lines(self.pts[2], self.pts[3], self.pts[12], self.pts[9])
+        FMA_dsc = helper.FMA_dsc
+        if FMA > 31:
+            FMA_dsc = helper.FMA_dsc_plus
+        elif FMA < 23:
+            FMA_dsc = helper.FMA_dsc_minus
+
         AG = helper.get_angle(self.pts[9], self.pts[12], self.pts[13])
+        AG_dsc = helper.AG_dsc
+        if AG > 134:
+            AG_dsc = helper.AG_dsc_plus
+        elif AG < 122:
+            AG_dsc = helper.AG_dsc_minus
+
         AXE_Y = helper.get_angle_lines(self.pts[0], self.pts[10], self.pts[2], self.pts[3])
+        AXE_Y_dsc = helper.AXE_Y_dsc
+        if AXE_Y > 62:
+            AXE_Y_dsc = helper.AXE_Y_dsc_plus
+        elif AXE_Y < 56:
+            AXE_Y_dsc = helper.AXE_Y_dsc_minus
+
         E_SUP, E_INF = helper.rapport_etage(self.pts[5], self.pts[1], self.pts[9])
+
         I_F = helper.get_angle_lines(self.pts[14], self.pts[15], self.pts[2], self.pts[3])
+        I_F_dsc = helper.I_F_dsc
+        if I_F > 110:
+            I_F_dsc = helper.I_F_dsc_plus
+        elif I_F < 104:
+            I_F_dsc = helper.I_F_dsc_minus
+
         I_M = helper.get_angle_lines(self.pts[16], self.pts[17], self.pts[12], self.pts[9])
+        I_M_dsc = helper.I_M_dsc
+        if I_M > 93:
+            I_M_dsc = helper.I_M_dsc_plus
+        elif I_M < 87:
+            I_M_dsc = helper.I_M_dsc_minus
+
         # I_I =
         # ALPHA =
         # BETA =
 
+
         self.angles = [SNA, SNB, ANB, AOBO, SND, AC, AF, FMA, AG, AXE_Y, E_SUP, E_INF, I_F, I_M]
+        self.description = [SNA_dsc, SNB_dsc, ANB_dsc, AOBO_dsc, " ", AC_dsc,
+                            AF_dsc, FMA_dsc, AG_dsc, AXE_Y_dsc, " ", " ", I_F_dsc, I_M_dsc]
+
+# //////////////////////////////////
+        document = Document()
+        # section = document.sections[-1]
+        # new_width, new_height = section.page_height, section.page_width
+        # new_section = document.add_section(WD_SECTION.NEW_PAGE)
+        # new_section.orientation = WD_ORIENT.LANDSCAPE
+        # new_section.page_width = new_width
+        # new_section.page_height = new_height
+
+        document.add_heading(self.name, 0)
+# ////////////////////////////////
 
         for i, angle in enumerate(self.angles):
             self.canvas.create_text(120, 20 * i + 500, fill="black", font="Times 12 bold",
                                     text=self.angles_text[i] + ": " + str(angle))
+            p = self.angles_text[i] + ": " + str(angle) + ", " + self.description[i]
+            document.add_paragraph(p, style='List Bullet')
+        document.add_picture(self.name + '.jpg', width=Inches(4))
+        document.save(self.name + ".docx")
 
     # def calculate(self):
     #
