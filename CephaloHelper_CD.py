@@ -31,7 +31,6 @@ L22_POA,
 L23_POP]
 '''
 
-
 class Cephalo(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
@@ -45,7 +44,7 @@ class Cephalo(tk.Tk):
 
         self.canvas = tk.Canvas(self, width=1000, height=750, cursor="cross")
         self.canvas.pack(side="top", fill="both", expand=True)
-        self.img = ImageTk.PhotoImage(Image.open("cephalo_TM.jpg"))
+        self.img = ImageTk.PhotoImage(Image.open("Belouassa Chehla.jpg"))
         # self.img = ImageTk.PhotoImage(Image.open("from_phone.jpg"))
         self.canvas.create_image(0, 0, image=self.img, anchor='nw')
         self.canvas.bind("<ButtonPress-1>", self.on_button_press)
@@ -57,37 +56,40 @@ class Cephalo(tk.Tk):
         self.canvas.delete(str(self.pts_text[len(self.pts) - 1]) + "_pt")
         self.pts.pop(-1)
 
-    # def calculate(self):
-    #     SNA = helper.get_angle(self.pts[0], self.pts[1], self.pts[6])
-    #     SNB = helper.get_angle(self.pts[0], self.pts[1], self.pts[7])
-    #     ANB = round(SNA - SNB)
-    #     AOBO = helper.aobo_verify(self.pts[6], self.pts[7], self.pts[22], self.pts[23], self.pts[-1], self.pts[-2])
-    #     SND = helper.get_angle(self.pts[0], self.pts[1], self.pts[11])
-    #     AC = round(180 - helper.get_angle(self.pts[8], self.pts[6], self.pts[1]))
-    #     AF = helper.get_angle(self.pts[2], self.pts[3], self.pts[8])
-    #     FMA = helper.get_angle_lines(self.pts[2], self.pts[3], self.pts[12], self.pts[9])
-    #     AG = helper.get_angle(self.pts[9], self.pts[12], self.pts[13])
-    #     AXE_Y = helper.get_angle_lines(self.pts[0], self.pts[10], self.pts[2], self.pts[3])
-    #     E_SUP, E_INF = helper.rapport_etage(self.pts[5], self.pts[1], self.pts[9])
-    #     I_F = helper.get_angle_lines(self.pts[14], self.pts[15], self.pts[2], self.pts[3])
-    #     I_M = helper.get_angle_lines(self.pts[16], self.pts[17], self.pts[12], self.pts[9])
-    #
-    #     self.angles = [SNA, SNB, ANB, AOBO, SND, AC, AF, FMA, AG, AXE_Y, E_SUP, E_INF, I_F, I_M]
-    #
-    #     for i, angle in enumerate(self.angles):
-    #         self.canvas.create_text(120, 20 * i + 500, fill="black", font="Times 12 bold",
-    #                                 text=self.angles_text[i] + ": " + str(angle))
-
     def calculate(self):
+        SNA = helper.get_angle(self.pts[0], self.pts[1], self.pts[6])
+        SNB = helper.get_angle(self.pts[0], self.pts[1], self.pts[7])
+        ANB = round(SNA - SNB)
+        AOBO = helper.aobo_verify(self.pts[6], self.pts[7], self.pts[22], self.pts[23], self.pts[-1], self.pts[-2])
+        SND = helper.get_angle(self.pts[0], self.pts[1], self.pts[11])
+        AC = round(180 - helper.get_angle(self.pts[8], self.pts[6], self.pts[1]))
+        AF = helper.get_angle(self.pts[2], self.pts[3], self.pts[8])
+        FMA = helper.get_angle_lines(self.pts[2], self.pts[3], self.pts[12], self.pts[9])
+        AG = helper.get_angle(self.pts[9], self.pts[12], self.pts[13])
+        AXE_Y = helper.get_angle_lines(self.pts[0], self.pts[10], self.pts[2], self.pts[3])
+        E_SUP, E_INF = helper.rapport_etage(self.pts[5], self.pts[1], self.pts[9])
+        I_F = helper.get_angle_lines(self.pts[14], self.pts[15], self.pts[2], self.pts[3])
+        I_M = helper.get_angle_lines(self.pts[16], self.pts[17], self.pts[12], self.pts[9])
+        # I_I =
+        # ALPHA =
+        # BETA =
 
-        AOBO = helper.aobo_verify(self.pts[0], self.pts[1], self.pts[2], self.pts[3], self.pts[-1], self.pts[-2])
-        self.canvas.create_text(120, 20*1+500, fill="black", font="Times 12 bold",
-                                text=str(AOBO))
+        self.angles = [SNA, SNB, ANB, AOBO, SND, AC, AF, FMA, AG, AXE_Y, E_SUP, E_INF, I_F, I_M]
+
+        for i, angle in enumerate(self.angles):
+            self.canvas.create_text(120, 20 * i + 500, fill="black", font="Times 12 bold",
+                                    text=self.angles_text[i] + ": " + str(angle))
+
+    # def calculate(self):
+    #
+    #     AOBO = helper.aobo_verify(self.pts[0], self.pts[1], self.pts[2], self.pts[3], self.pts[-1], self.pts[-2])
+    #     self.canvas.create_text(120, 20*1+500, fill="black", font="Times 12 bold",
+    #                             text=str(AOBO))
 
 
     def on_button_press(self, event):
         # 26
-        if len(self.pts) == 6:
+        if len(self.pts) == 26:
             self.calculate()
         else:
             self.x = event.x
@@ -108,3 +110,9 @@ class Cephalo(tk.Tk):
 if __name__ == "__main__":
     app = Cephalo()
     app.mainloop()
+
+
+
+
+
+

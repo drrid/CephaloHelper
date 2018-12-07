@@ -1,0 +1,53 @@
+SNA_dsc = "Maxillaire normale par rapport à la base du crâne"
+SNA_dsc_plus = "Maxillaire en avant par rapport à la base du crâne"
+SNA_dsc_minus = "Maxillaire en retrait par rapport à la base du crâne"
+
+SNB_dsc = "Mandibule normale par rapport à la base du crâne"
+SNB_dsc_plus = "Mandibule en avant par rapport à la base du crâne"
+SNB_dsc_minus = "Mandibule en retrait par rapport à la base du crâne"
+
+ANB_dsc = "Mandibule normale par rapport au maxillaire, Classe I squelettique"
+ANB_dsc_plus = "Mandibule en retrait par rapport au maxillaire, Classe II squelettique"
+ANB_dsc_minus = "Mandibule en avant par rapport au maxillaire, Classe III squelettique"
+
+AC_dsc = "type rectiligne"
+AC_dsc_plus = "type convexe"
+AC_dsc_minus = "type concave"
+
+AF_dsc = "Normoposition du menton"
+AF_dsc_plus = "Protrusion du menton"
+AF_dsc_minus = "Rétrusion du menton"
+
+AoBo_dsc = "Les maxillaires ont dsc rapports harmonieux"
+AoBo_dsc_plus = "Classe II squelettique"
+AoBo_dsc_minus = "Classe III squelettique"
+
+FMA_dsc = "Croissance mandibulaire moyenne"
+FMA_dsc_plus = "Croissance mandibulaire à tendance verticale"
+FMA_dsc_minus = "Croissance mandibulaire à tendance horizontale"
+
+Axe_y_dsc = "Croissance faciale moyenne"
+Axe_y_dsc_plus = "Croissance faciale à tendance verticale"
+Axe_y_dsc_minus = "Croissance faciale à tendance horizontale"
+
+AG_dsc = "Normodivergence"
+AG_dsc_plus = "Hyperdivergence"
+AG_dsc_minus = "Hypodivergence"
+
+I_F_dsc = "Normoalvéolie Supérieure"
+I_F_dsc_plus = "Proalvéolie supérieure"
+I_F_dsc_minus = "Rétroalvéolie supérieure"
+
+I_M_dsc = "Normoalvéolie inférieure"
+I_M_dsc_plus = "Proalvéolie inférieure"
+I_M_dsc_minus = "Rétroalvéolie inférieure"
+
+I_I_dsc = "Normoalvéolie"
+I_I_dsc_plus = "Rétrusion du bloc incisif"
+I_I_dsc_minus = "Protrusion du bloc incisif"
+
+ALPHA_plus = "Mésioversion de la molaire supérieure"
+ALPHA_minus = "Distoversion de la molaire supérieure"
+
+BETA_plus = "Mésioversion de la molaire inférieure"
+BETA_minus = "Distoversion de la molaire inférieure"

@@ -1,6 +1,59 @@
 import numpy as np
 import math
 
+SNA_dsc = "Maxillaire normale par rapport à la base du crâne"
+SNA_dsc_plus = "Maxillaire en avant par rapport à la base du crâne"
+SNA_dsc_minus = "Maxillaire en retrait par rapport à la base du crâne"
+
+SNB_dsc = "Mandibule normale par rapport à la base du crâne"
+SNB_dsc_plus = "Mandibule en avant par rapport à la base du crâne"
+SNB_dsc_minus = "Mandibule en retrait par rapport à la base du crâne"
+
+ANB_dsc = "Mandibule normale par rapport au maxillaire, Classe I squelettique"
+ANB_dsc_plus = "Mandibule en retrait par rapport au maxillaire, Classe II squelettique"
+ANB_dsc_minus = "Mandibule en avant par rapport au maxillaire, Classe III squelettique"
+
+AC_dsc = "type rectiligne"
+AC_dsc_plus = "type convexe"
+AC_dsc_minus = "type concave"
+
+AF_dsc = "Normoposition du menton"
+AF_dsc_plus = "Protrusion du menton"
+AF_dsc_minus = "Rétrusion du menton"
+
+AoBo_dsc = "Les maxillaires ont dsc rapports harmonieux"
+AoBo_dsc_plus = "Classe II squelettique"
+AoBo_dsc_minus = "Classe III squelettique"
+
+FMA_dsc = "Croissance mandibulaire moyenne"
+FMA_dsc_plus = "Croissance mandibulaire à tendance verticale"
+FMA_dsc_minus = "Croissance mandibulaire à tendance horizontale"
+
+Axe_y_dsc = "Croissance faciale moyenne"
+Axe_y_dsc_plus = "Croissance faciale à tendance verticale"
+Axe_y_dsc_minus = "Croissance faciale à tendance horizontale"
+
+AG_dsc = "Normodivergence"
+AG_dsc_plus = "Hyperdivergence"
+AG_dsc_minus = "Hypodivergence"
+
+I_F_dsc = "Normoalvéolie Supérieure"
+I_F_dsc_plus = "Proalvéolie supérieure"
+I_F_dsc_minus = "Rétroalvéolie supérieure"
+
+I_M_dsc = "Normoalvéolie inférieure"
+I_M_dsc_plus = "Proalvéolie inférieure"
+I_M_dsc_minus = "Rétroalvéolie inférieure"
+
+I_I_dsc = "Normoalvéolie"
+I_I_dsc_plus = "Rétrusion du bloc incisif"
+I_I_dsc_minus = "Protrusion du bloc incisif"
+
+ALPHA_dsc_plus = "Mésioversion de la molaire supérieure"
+ALPHA_dsc_minus = "Distoversion de la molaire supérieure"
+
+BETA_dsc_plus = "Mésioversion de la molaire inférieure"
+BETA_dsc_minus = "Distoversion de la molaire inférieure"
 
 '''
 [L0_sella,
@@ -148,22 +201,5 @@ def get_angle_lines(p0, p1, p2, p3):
 
     angle = np.math.atan2(np.linalg.det([v0,v1]),np.dot(v0,v1))
     return round(abs(np.degrees(angle)), 1)
-    # return np.degrees(angle)
 
-#
-# angles = {}
-# pts = get_points("ceph2.pts")
-#
-#
-# #Angles usuelles
-# angles['SNA'] = get_angle(pts[0], pts[1], pts[4])
-# angles['SNB'] = get_angle(pts[0], pts[1], pts[5])
-# angles['ANB'] = angles['SNA'] - angles['SNB']
-# angles['AC'] = 180 - (get_angle(pts[6], pts[4], pts[1]))
-# angles['AF'] = get_angle(pts[3], pts[2], pts[6])
-# angles['FMA'] = get_angle_lines(pts[2], pts[3], pts[7], pts[9])
-# angles['AXE-Y'] = get_angle_lines(pts[0], pts[8], pts[3], pts[2])
-# angles['AG'] = get_angle(pts[7], pts[9], pts[18])
-#
-# for key, value in angles.items():
-#     print(key + ": " + str(value))
+
