@@ -1,59 +1,73 @@
 import numpy as np
 import math
 
-SNA_dsc = "Maxillaire normale par rapport à la base du crâne"
-SNA_dsc_plus = "Maxillaire en avant par rapport à la base du crâne"
-SNA_dsc_minus = "Maxillaire en retrait par rapport à la base du crâne"
+SNA_dsc = "(83° ±3°) Maxillaire normale par rapport à la base du crâne"
+SNA_dsc_plus = "(83° ±3°) Maxillaire en avant par rapport à la base du crâne"
+SNA_dsc_minus = "(83° ±3°) Maxillaire en retrait par rapport à la base du crâne"
 
-SNB_dsc = "Mandibule normale par rapport à la base du crâne"
-SNB_dsc_plus = "Mandibule en avant par rapport à la base du crâne"
-SNB_dsc_minus = "Mandibule en retrait par rapport à la base du crâne"
+SNB_dsc = "(80° ±3°) Mandibule normale par rapport à la base du crâne"
+SNB_dsc_plus = "(80° ±3°) Mandibule en avant par rapport à la base du crâne"
+SNB_dsc_minus = "(80° ±3°) Mandibule en retrait par rapport à la base du crâne"
 
-ANB_dsc = "Mandibule normale par rapport au maxillaire, Classe I squelettique"
-ANB_dsc_plus = "Mandibule en retrait par rapport au maxillaire, Classe II squelettique"
-ANB_dsc_minus = "Mandibule en avant par rapport au maxillaire, Classe III squelettique"
+ANB_dsc = "(3° ±1°) Mandibule normale par rapport au maxillaire, Classe I squelettique"
+ANB_dsc_plus = "(3° ±1°) Mandibule en retrait par rapport au maxillaire, Classe II squelettique"
+ANB_dsc_minus = "(3° ±1°) Mandibule en avant par rapport au maxillaire, Classe III squelettique"
 
-AC_dsc = "type rectiligne"
-AC_dsc_plus = "type convexe"
-AC_dsc_minus = "type concave"
+SND_dsc = "(76°) Normogénie"
+SND_dsc_plus = "(76°) Progénie"
+SND_dsc_minus = "(76°) Rétrogénie"
 
-AF_dsc = "Normoposition du menton"
-AF_dsc_plus = "Protrusion du menton"
-AF_dsc_minus = "Rétrusion du menton"
+AC_dsc = "(6° ±5°) Type rectiligne"
+AC_dsc_plus = "(6° ±5°) Type convexe"
+AC_dsc_minus = "(6° ±5°) Type concave"
 
-AoBo_dsc = "Les maxillaires ont des rapports harmonieux"
-AoBo_dsc_plus = "Classe II squelettique"
-AoBo_dsc_minus = "Classe III squelettique"
+E_SUP_dsc = "(45.5% ±2%) Etage supérieure normal"
+E_SUP_dsc_plus = "(45.5% ±2%) Etage supérieure augmenté"
+E_SUP_dsc_minus = "(45.5% ±2%) Etage supérieure diminué"
 
-FMA_dsc = "Croissance mandibulaire moyenne"
-FMA_dsc_plus = "Croissance mandibulaire à tendance verticale"
-FMA_dsc_minus = "Croissance mandibulaire à tendance horizontale"
+E_INF_dsc = "(54.5% ±2%) Etage inférieure normal"
+E_INF_dsc_plus = "(54.5% ±2%) Etage inférieure augmenté"
+E_INF_dsc_minus = "(54.5% ±2%) Etage inférieure diminué"
 
-AXE_Y_dsc = "Croissance faciale moyenne"
-AXE_Y_dsc_plus = "Croissance faciale à tendance verticale"
-AXE_Y_dsc_minus = "Croissance faciale à tendance horizontale"
+AF_dsc = "(90° ±3°) Normoposition du menton"
+AF_dsc_plus = "(90° ±3°) Protrusion du menton"
+AF_dsc_minus = "(90° ±3°) Rétrusion du menton"
 
-AG_dsc = "Normodivergence"
-AG_dsc_plus = "Hyperdivergence"
-AG_dsc_minus = "Hypodivergence"
+AoBo_dsc = "(1mm ±2mm) Les maxillaires ont des rapports harmonieux"
+AoBo_dsc_plus = "(1mm ±2mm) Classe II squelettique"
+AoBo_dsc_minus = "(1mm ±2mm) Classe III squelettique"
 
-I_F_dsc = "Normoalvéolie Supérieure"
-I_F_dsc_plus = "Proalvéolie supérieure"
-I_F_dsc_minus = "Rétroalvéolie supérieure"
+FMA_dsc = "(27° ±4°) Croissance mandibulaire moyenne"
+FMA_dsc_plus = "(27° ±4°) Croissance mandibulaire à tendance verticale"
+FMA_dsc_minus = "(27° ±4°) Croissance mandibulaire à tendance horizontale"
 
-I_M_dsc = "Normoalvéolie inférieure"
-I_M_dsc_plus = "Proalvéolie inférieure"
-I_M_dsc_minus = "Rétroalvéolie inférieure"
+AXE_Y_dsc = "(59° ±3°) Croissance faciale moyenne"
+AXE_Y_dsc_plus = "(59° ±3°) Croissance faciale à tendance verticale"
+AXE_Y_dsc_minus = "(59° ±3°) Croissance faciale à tendance horizontale"
 
-I_I_dsc = "Normoalvéolie"
-I_I_dsc_plus = "Rétrusion du bloc incisif"
-I_I_dsc_minus = "Protrusion du bloc incisif"
+AG_dsc = "(128° ±6°) Normodivergence"
+AG_dsc_plus = "(128° ±6°) Hyperdivergence"
+AG_dsc_minus = "(128° ±6°) Hypodivergence"
 
-ALPHA_dsc_plus = "Mésioversion de la molaire supérieure"
-ALPHA_dsc_minus = "Distoversion de la molaire supérieure"
+I_F_dsc = "(107° ±3°) Normoalvéolie Supérieure"
+I_F_dsc_plus = "(107° ±3°) Proalvéolie supérieure"
+I_F_dsc_minus = "(107° ±3°) Rétroalvéolie supérieure"
 
-BETA_dsc_plus = "Mésioversion de la molaire inférieure"
-BETA_dsc_minus = "Distoversion de la molaire inférieure"
+I_M_dsc = "(90° ±3°) Normoalvéolie inférieure"
+I_M_dsc_plus = "(90° ±3°) Proalvéolie inférieure"
+I_M_dsc_minus = "(90° ±3°) Rétroalvéolie inférieure"
+
+I_I_dsc = "(135° ±5°) Normoalvéolie"
+I_I_dsc_plus = "(135° ±5°) Rétrusion du bloc incisif"
+I_I_dsc_minus = "(135° ±5°) Protrusion du bloc incisif"
+
+ALPHA_dsc = "(90° ±3°) Normoposition de la molaire supérieure"
+ALPHA_dsc_plus = "(90° ±3°) Mésioversion de la molaire supérieure"
+ALPHA_dsc_minus = "(90° ±3°) Distoversion de la molaire supérieure"
+
+BETA_dsc = "(100° ±3°) Normoposition de la molaire inférieure"
+BETA_dsc_plus = "(100° ±3°) Mésioversion de la molaire inférieure"
+BETA_dsc_minus = "(100° ±3°) Distoversion de la molaire inférieure"
 
 '''
 [L0_sella,

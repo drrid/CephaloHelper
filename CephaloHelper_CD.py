@@ -39,14 +39,14 @@ L23_POP]
 class Cephalo(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
-        self.name = "Belouassa Chehla"
+        self.name = "Feltane Imad Eddine"
         self.x = self.y = 0
         self.pts = []
         self.pts_text = ["S", "Na", "Po", "Or", "ENP", "ENA", "A", "B", "Pog", "Me", "Gn", "D", "Go",
                          "Ar", "I1", "I2", "i_1", "i_2", "M1", "M2", "m_1", "m_2", "POA", "POP", "clb1", "clb2"]
 
         self.angles_text = ["SNA", "SNB", "ANB", "Ao-Bo", "SND", "Â.Conv", "Â.Facial", "FMA", "Â.Gon", "Axe Y",
-                            "Etage Superieur", "Etage Inferieur", "I/F", "i/m", "I/i", "alpha", "beta"]
+                            "Etage Superieur", "Etage Inferieur", "I/F", "i/m", "I/i", "Alpha", "Beta"]
 
         self.canvas = tk.Canvas(self, width=1000, height=750, cursor="cross")
         self.canvas.pack(side="top", fill="both", expand=True)
@@ -92,6 +92,11 @@ class Cephalo(tk.Tk):
             AOBO_dsc = helper.AoBo_dsc_minus
 
         SND = helper.get_angle(self.pts[0], self.pts[1], self.pts[11])
+        SND_dsc = helper.SND_dsc
+        if SND > 76:
+            SND_dsc = helper.SND_dsc_plus
+        elif SND < 76:
+            SND_dsc = helper.SND_dsc_minus
 
         AC = round(180 - helper.get_angle(self.pts[8], self.pts[6], self.pts[1]))
         AC_dsc = helper.AC_dsc
@@ -129,6 +134,17 @@ class Cephalo(tk.Tk):
             AXE_Y_dsc = helper.AXE_Y_dsc_minus
 
         E_SUP, E_INF = helper.rapport_etage(self.pts[5], self.pts[1], self.pts[9])
+        E_SUP_dsc = helper.E_SUP_dsc
+        if E_SUP > 43.5:
+            E_SUP_dsc = helper.E_SUP_dsc_plus
+        elif E_SUP < 47.5:
+            E_SUP_dsc = helper.E_SUP_dsc_minus
+
+        E_INF_dsc = helper.E_INF_dsc
+        if E_INF > 56.5:
+            E_INF_dsc = helper.E_INF_dsc_plus
+        elif E_INF < 52.5:
+            E_INF_dsc = helper.E_INF_dsc_minus
 
         I_F = helper.get_angle_lines(self.pts[14], self.pts[15], self.pts[2], self.pts[3])
         I_F_dsc = helper.I_F_dsc
@@ -144,14 +160,34 @@ class Cephalo(tk.Tk):
         elif I_M < 87:
             I_M_dsc = helper.I_M_dsc_minus
 
-        # I_I =
-        # ALPHA =
-        # BETA =
+        I_I = helper.get_angle_lines(self.pts[14], self.pts[15], self.pts[16], self.pts[17])
+        I_I_dsc = helper.I_I_dsc
+        if I_I > 140:
+            I_I_dsc = helper.I_I_dsc_plus
+        elif I_I < 130:
+            I_I_dsc = helper.I_I_dsc_minus
+
+        ALPHA = helper.get_angle_lines(self.pts[18], self.pts[19], self.pts[23], self.pts[22])
+        ALPHA_dsc = helper.ALPHA_dsc
+        if ALPHA > 93:
+            ALPHA_dsc = helper.ALPHA_dsc_plus
+        elif ALPHA < 87:
+            ALPHA_dsc = helper.ALPHA_dsc_minus
+
+        BETA = helper.get_angle_lines(self.pts[20], self.pts[21], self.pts[23], self.pts[22])
+        BETA_dsc = helper.BETA_dsc
+        if BETA > 103:
+            BETA_dsc = helper.BETA_dsc_plus
+        elif BETA < 97:
+            BETA_dsc = helper.BETA_dsc_minus
 
 
-        self.angles = [SNA, SNB, ANB, AOBO, SND, AC, AF, FMA, AG, AXE_Y, E_SUP, E_INF, I_F, I_M]
-        self.description = [SNA_dsc, SNB_dsc, ANB_dsc, AOBO_dsc, " ", AC_dsc,
-                            AF_dsc, FMA_dsc, AG_dsc, AXE_Y_dsc, " ", " ", I_F_dsc, I_M_dsc]
+        self.angles = [SNA, SNB, ANB, AOBO, SND, AC, AF, FMA, AG,
+                       AXE_Y, E_SUP, E_INF, I_F, I_M, I_I, ALPHA, BETA]
+
+        self.description = [SNA_dsc, SNB_dsc, ANB_dsc, AOBO_dsc, SND_dsc, AC_dsc,
+                            AF_dsc, FMA_dsc, AG_dsc, AXE_Y_dsc, E_SUP_dsc, E_INF_dsc,
+                            I_F_dsc, I_M_dsc, I_I_dsc, ALPHA_dsc, BETA_dsc]
 
 # //////////////////////////////////
         document = Document()
