@@ -39,7 +39,7 @@ L23_POP]
 class Cephalo(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
-        self.name = "Feltane Imad Eddine"
+        self.name = "Bougheda Fady"
         self.x = self.y = 0
         self.pts = []
         self.pts_text = ["S", "Na", "Po", "Or", "ENP", "ENA", "A", "B", "Pog", "Me", "Gn", "D", "Go",
@@ -135,9 +135,9 @@ class Cephalo(tk.Tk):
 
         E_SUP, E_INF = helper.rapport_etage(self.pts[5], self.pts[1], self.pts[9])
         E_SUP_dsc = helper.E_SUP_dsc
-        if E_SUP > 43.5:
+        if E_SUP > 47.5:
             E_SUP_dsc = helper.E_SUP_dsc_plus
-        elif E_SUP < 47.5:
+        elif E_SUP < 43.5:
             E_SUP_dsc = helper.E_SUP_dsc_minus
 
         E_INF_dsc = helper.E_INF_dsc
