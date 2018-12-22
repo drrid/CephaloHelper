@@ -7,6 +7,8 @@ from docx.shared import Inches
 from docx.enum.section import WD_ORIENT
 from docx.enum.section import WD_SECTION
 
+from mailmerge import MailMerge
+
 '''
 Points:
 
@@ -39,7 +41,8 @@ L23_POP]
 class Cephalo(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
-        self.name = "Bougheda Fady"
+        self.name = "Boursas Yahia"
+        self.age = str(12)
         self.x = self.y = 0
         self.pts = []
         self.pts_text = ["S", "Na", "Po", "Or", "ENP", "ENA", "A", "B", "Pog", "Me", "Gn", "D", "Go",
@@ -189,25 +192,26 @@ class Cephalo(tk.Tk):
                             AF_dsc, FMA_dsc, AG_dsc, AXE_Y_dsc, E_SUP_dsc, E_INF_dsc,
                             I_F_dsc, I_M_dsc, I_I_dsc, ALPHA_dsc, BETA_dsc]
 
-# //////////////////////////////////
-        document = Document()
-        # section = document.sections[-1]
-        # new_width, new_height = section.page_height, section.page_width
-        # new_section = document.add_section(WD_SECTION.NEW_PAGE)
-        # new_section.orientation = WD_ORIENT.LANDSCAPE
-        # new_section.page_width = new_width
-        # new_section.page_height = new_height
 
-        document.add_heading(self.name, 0)
-# ////////////////////////////////
 
+        # document = Document()
+        # document.add_heading(self.name, 0)
+
+        template = MailMerge("cephalo_temp.docx")
+        pr = []
         for i, angle in enumerate(self.angles):
             self.canvas.create_text(120, 20 * i + 500, fill="black", font="Times 12 bold",
                                     text=self.angles_text[i] + ": " + str(angle))
-            p = self.angles_text[i] + ": " + str(angle) + ", " + self.description[i]
-            document.add_paragraph(p, style='List Bullet')
-        document.add_picture(self.name + '.jpg', width=Inches(4))
-        document.save(self.name + ".docx")
+            p = str(angle) + ", " + self.description[i]
+            pr.append(p)
+
+        template.merge(name=self.name, age=self.age,sna=pr[0], snb=pr[1], anb=pr[2], aobo=pr[3], snd=pr[4], ac=pr[5],
+                       af=pr[6], fma=pr[7], ag=pr[8], axe_y=pr[9], e_sup=pr[10], e_inf=pr[11],
+                       i_f=pr[12], i_m=pr[13], i_i=pr[14], alpha=pr[15], beta=pr[16])
+        template.write(self.name + ".docx")
+            # document.add_paragraph(p, style='List Bullet')
+        # document.add_picture(self.name + '.jpg', width=Inches(4))
+        # document.save(self.name + ".docx")
 
     # def calculate(self):
     #
@@ -239,7 +243,6 @@ class Cephalo(tk.Tk):
 if __name__ == "__main__":
     app = Cephalo()
     app.mainloop()
-
 
 
 
